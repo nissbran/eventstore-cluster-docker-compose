@@ -2,7 +2,7 @@ version:  "2"
 
 services:
   eventstore1:
-   image: my_eventstore
+   image: krnissbrandt/eventstore-cluster-node-docker:latest
    environment:
      - EVENTSTORE_GOSSIP_SEED=172.16.238.12:2112,172.16.238.13:2112
      - EVENTSTORE_CLUSTER_SIZE=3
@@ -23,7 +23,7 @@ services:
        ipv4_address: 172.16.238.11
        
   eventstore2:
-   image: my_eventstore
+   image: krnissbrandt/eventstore-cluster-node-docker:latest
    environment:
      - EVENTSTORE_GOSSIP_SEED=172.16.238.11:2112,172.16.238.13:2112
      - EVENTSTORE_CLUSTER_SIZE=3
@@ -44,7 +44,7 @@ services:
        ipv4_address: 172.16.238.12
    
   eventstore3:
-   image: my_eventstore
+   image: krnissbrandt/eventstore-cluster-node-docker:latest
    environment:
      - EVENTSTORE_GOSSIP_SEED=172.16.238.11:2112,172.16.238.13:2112
      - EVENTSTORE_CLUSTER_SIZE=3

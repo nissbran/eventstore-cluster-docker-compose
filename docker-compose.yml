@@ -1,0 +1,74 @@
+version:  "2"
+
+services:
+  eventstore1:
+   image: my_eventstore
+   environment:
+     - EVENTSTORE_GOSSIP_SEED=172.16.238.12:2112,172.16.238.13:2112
+     - EVENTSTORE_CLUSTER_SIZE=3
+     - EVENTSTORE_INT_IP=172.16.238.11
+     #- EVENTSTORE_INT_IP_ADVERTISE_AS=172.16.238.11
+     - EVENTSTORE_EXT_IP=172.16.238.11
+     - EVENTSTORE_EXT_IP_ADVERTISE_AS=127.0.0.1
+     - EVENTSTORE_EXT_HTTP_PORT=2113
+     - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2113/
+   ports:
+     - 127.0.0.1:2113:2113
+   volumes:
+     - "~/Data/eventstore1/db:/data/db"
+     - "~/Data/eventstore1/logs:/data/logs"
+   restart: always
+   networks:
+     clusternetwork:
+       ipv4_address: 172.16.238.11
+       
+  eventstore2:
+   image: my_eventstore
+   environment:
+     - EVENTSTORE_GOSSIP_SEED=172.16.238.11:2112,172.16.238.13:2112
+     - EVENTSTORE_CLUSTER_SIZE=3
+     - EVENTSTORE_INT_IP=172.16.238.12
+   #  - EVENTSTORE_INT_IP_ADVERTISE_AS=172.16.238.12
+     - EVENTSTORE_EXT_IP=172.16.238.12
+     - EVENTSTORE_EXT_IP_ADVERTISE_AS=127.0.0.1
+     - EVENTSTORE_EXT_HTTP_PORT=2123
+     - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2123/
+   ports:
+     - 127.0.0.1:2123:2123
+   volumes:
+     - "~/Data/eventstore1/db:/data/db"
+     - "~/Data/eventstore1/logs:/data/logs"
+   restart: always
+   networks:
+     clusternetwork:
+       ipv4_address: 172.16.238.12
+   
+  eventstore3:
+   image: my_eventstore
+   environment:
+     - EVENTSTORE_GOSSIP_SEED=172.16.238.11:2112,172.16.238.13:2112
+     - EVENTSTORE_CLUSTER_SIZE=3
+     - EVENTSTORE_INT_IP=172.16.238.13
+    # - EVENTSTORE_INT_IP_ADVERTISE_AS=172.16.238.13
+     - EVENTSTORE_EXT_IP=172.16.238.13
+     - EVENTSTORE_EXT_IP_ADVERTISE_AS=127.0.0.1
+     - EVENTSTORE_EXT_HTTP_PORT=2133
+     - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2133/
+   ports:
+     - 127.0.0.1:2133:2133
+   volumes:
+     - "~/Data/eventstore1/db:/data/db"
+     - "~/Data/eventstore1/logs:/data/logs"
+   restart: always
+   networks:
+     clusternetwork:
+       ipv4_address: 172.16.238.13
+
+networks:
+  clusternetwork:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1    

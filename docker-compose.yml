@@ -36,8 +36,8 @@ services:
    ports:
      - 127.0.0.1:2123:2123
    volumes:
-     - "~/Data/eventstore1/db:/data/db"
-     - "~/Data/eventstore1/logs:/data/logs"
+     - "~/Data/eventstore2/db:/data/db"
+     - "~/Data/eventstore2/logs:/data/logs"
    restart: always
    networks:
      clusternetwork:
@@ -57,8 +57,8 @@ services:
    ports:
      - 127.0.0.1:2133:2133
    volumes:
-     - "~/Data/eventstore1/db:/data/db"
-     - "~/Data/eventstore1/logs:/data/logs"
+     - "~/Data/eventstore3/db:/data/db"
+     - "~/Data/eventstore3/logs:/data/logs"
    restart: always
    networks:
      clusternetwork:

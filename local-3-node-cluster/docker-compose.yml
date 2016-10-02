@@ -6,6 +6,11 @@ services:
    environment:
      - EVENTSTORE_GOSSIP_SEED=172.16.0.12:2112,172.16.0.13:2112
      - EVENTSTORE_CLUSTER_SIZE=3
+    # - EVENTSTORE_COMMIT_COUNT=1
+    # - EVENTSTORE_PREPARE_COUNT=1
+    # - EVENTSTORE_MEM_DB=True
+     - EVENTSTORE_GOSSIP_TIMEOUT_MS=1000
+     - EVENTSTORE_MONO_MIN_THREADPOOL_SIZE=10
      - EVENTSTORE_INT_IP=172.16.0.11
      - EVENTSTORE_EXT_IP=172.16.0.11
      - EVENTSTORE_EXT_IP_ADVERTISE_AS=127.0.0.1
@@ -16,8 +21,8 @@ services:
      - 127.0.0.1:1113:1113
      - 127.0.0.1:2113:2113
    volumes:
-     - "~/Data/eventstore1/db:/data/db"
-     - "~/Data/eventstore1/logs:/data/logs"
+     - "~/Data/eventstore3node/node1/db:/data/db"
+     - "~/Data/eventstore3node/node1/logs:/data/logs"
    restart: always
    networks:
      clusternetwork:
@@ -28,6 +33,11 @@ services:
    environment:
      - EVENTSTORE_GOSSIP_SEED=172.16.0.11:2112,172.16.0.13:2112
      - EVENTSTORE_CLUSTER_SIZE=3
+    # - EVENTSTORE_COMMIT_COUNT=1
+    # - EVENTSTORE_PREPARE_COUNT=1
+    # - EVENTSTORE_MEM_DB=True
+     - EVENTSTORE_GOSSIP_TIMEOUT_MS=1000
+     - EVENTSTORE_MONO_MIN_THREADPOOL_SIZE=10
      - EVENTSTORE_INT_IP=172.16.0.12
      - EVENTSTORE_EXT_IP=172.16.0.12
      - EVENTSTORE_EXT_IP_ADVERTISE_AS=127.0.0.1
@@ -38,8 +48,8 @@ services:
      - 127.0.0.1:1123:1123
      - 127.0.0.1:2123:2123
    volumes:
-     - "~/Data/eventstore2/db:/data/db"
-     - "~/Data/eventstore2/logs:/data/logs"
+     - "~/Data/eventstore3node/node2/db:/data/db"
+     - "~/Data/eventstore3node/node2/logs:/data/logs"
    restart: always
    networks:
      clusternetwork:
@@ -50,6 +60,11 @@ services:
    environment:
      - EVENTSTORE_GOSSIP_SEED=172.16.0.11:2112,172.16.0.13:2112
      - EVENTSTORE_CLUSTER_SIZE=3
+    # - EVENTSTORE_COMMIT_COUNT=1
+    # - EVENTSTORE_PREPARE_COUNT=1
+    # - EVENTSTORE_MEM_DB=True
+     - EVENTSTORE_GOSSIP_TIMEOUT_MS=1000
+     - EVENTSTORE_MONO_MIN_THREADPOOL_SIZE=10
      - EVENTSTORE_INT_IP=172.16.0.13
      - EVENTSTORE_EXT_IP=172.16.0.13
      - EVENTSTORE_EXT_IP_ADVERTISE_AS=127.0.0.1
@@ -60,8 +75,8 @@ services:
      - 127.0.0.1:1133:1133
      - 127.0.0.1:2133:2133
    volumes:
-     - "~/Data/eventstore3/db:/data/db"
-     - "~/Data/eventstore3/logs:/data/logs"
+     - "~/Data/eventstore3node/node3/db:/data/db"
+     - "~/Data/eventstore3node/node3/logs:/data/logs"
    restart: always
    networks:
      clusternetwork:

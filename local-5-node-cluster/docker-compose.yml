@@ -3,16 +3,13 @@ version:  "2"
 services:
   eventstore1:
    image: krnissbrandt/eventstore-cluster-node-docker:latest
+   env_file:
+     - common-variables.env
    environment:
      - EVENTSTORE_GOSSIP_SEED=172.18.0.12:2112,172.18.0.13:2112,172.18.0.14:2112,172.18.0.15:2112
-     - EVENTSTORE_CLUSTER_SIZE=5
-    # - EVENTSTORE_COMMIT_COUNT=3
-    # - EVENTSTORE_PREPARE_COUNT=3
      - EVENTSTORE_NODE_PRIORITY=3
-     - EVENTSTORE_GOSSIP_TIMEOUT_MS=1000
      - EVENTSTORE_INT_IP=172.18.0.11
      - EVENTSTORE_EXT_IP=172.18.0.11
-     - EVENTSTORE_EXT_IP_ADVERTISE_AS=127.0.0.1
      - EVENTSTORE_EXT_HTTP_PORT=2113
      - EVENTSTORE_EXT_TCP_PORT=1113
      - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2113/
@@ -29,16 +26,13 @@ services:
        
   eventstore2:
    image: krnissbrandt/eventstore-cluster-node-docker:latest
+   env_file:
+     - common-variables.env
    environment:
      - EVENTSTORE_GOSSIP_SEED=172.18.0.11:2112,172.18.0.13:2112,172.18.0.14:2112,172.18.0.15:2112
-     - EVENTSTORE_CLUSTER_SIZE=5
-    # - EVENTSTORE_COMMIT_COUNT=3
-    # - EVENTSTORE_PREPARE_COUNT=3
      - EVENTSTORE_NODE_PRIORITY=2
-     - EVENTSTORE_GOSSIP_TIMEOUT_MS=1000
      - EVENTSTORE_INT_IP=172.18.0.12
      - EVENTSTORE_EXT_IP=172.18.0.12
-     - EVENTSTORE_EXT_IP_ADVERTISE_AS=127.0.0.1
      - EVENTSTORE_EXT_HTTP_PORT=2123
      - EVENTSTORE_EXT_TCP_PORT=1123
      - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2123/
@@ -55,16 +49,13 @@ services:
    
   eventstore3:
    image: krnissbrandt/eventstore-cluster-node-docker:latest
+   env_file:
+     - common-variables.env
    environment:
      - EVENTSTORE_GOSSIP_SEED=172.18.0.11:2112,172.18.0.13:2112,172.18.0.14:2112,172.18.0.15:2112
-     - EVENTSTORE_CLUSTER_SIZE=5
-    # - EVENTSTORE_COMMIT_COUNT=3
-    # - EVENTSTORE_PREPARE_COUNT=3
      - EVENTSTORE_NODE_PRIORITY=1
-     - EVENTSTORE_GOSSIP_TIMEOUT_MS=1000
      - EVENTSTORE_INT_IP=172.18.0.13
      - EVENTSTORE_EXT_IP=172.18.0.13
-     - EVENTSTORE_EXT_IP_ADVERTISE_AS=127.0.0.1
      - EVENTSTORE_EXT_HTTP_PORT=2133
      - EVENTSTORE_EXT_TCP_PORT=1133
      - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2133/
@@ -81,16 +72,13 @@ services:
 
   eventstore4:
    image: krnissbrandt/eventstore-cluster-node-docker:latest
+   env_file:
+     - common-variables.env
    environment:
      - EVENTSTORE_GOSSIP_SEED=172.18.0.11:2112,172.18.0.12:2112,172.18.0.13:2112,172.18.0.15:2112
-     - EVENTSTORE_CLUSTER_SIZE=5
-    # - EVENTSTORE_COMMIT_COUNT=3
-    # - EVENTSTORE_PREPARE_COUNT=3
      - EVENTSTORE_NODE_PRIORITY=1
-     - EVENTSTORE_GOSSIP_TIMEOUT_MS=1000
      - EVENTSTORE_INT_IP=172.18.0.14
      - EVENTSTORE_EXT_IP=172.18.0.14
-     - EVENTSTORE_EXT_IP_ADVERTISE_AS=127.0.0.1
      - EVENTSTORE_EXT_HTTP_PORT=2143
      - EVENTSTORE_EXT_TCP_PORT=1143
      - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2143/
@@ -107,16 +95,13 @@ services:
 
   eventstore5:
    image: krnissbrandt/eventstore-cluster-node-docker:latest
+   env_file:
+     - common-variables.env
    environment:
      - EVENTSTORE_GOSSIP_SEED=172.18.0.11:2112,172.18.0.12:2112,172.18.0.13:2112,172.18.0.14:2112
-     - EVENTSTORE_CLUSTER_SIZE=5
-    # - EVENTSTORE_COMMIT_COUNT=3
-    # - EVENTSTORE_PREPARE_COUNT=3
      - EVENTSTORE_NODE_PRIORITY=1
-     - EVENTSTORE_GOSSIP_TIMEOUT_MS=1000
      - EVENTSTORE_INT_IP=172.18.0.15
      - EVENTSTORE_EXT_IP=172.18.0.15
-     - EVENTSTORE_EXT_IP_ADVERTISE_AS=127.0.0.1
      - EVENTSTORE_EXT_HTTP_PORT=2153
      - EVENTSTORE_EXT_TCP_PORT=1153
      - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2153/

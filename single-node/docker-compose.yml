@@ -1,0 +1,23 @@
+version:  "2"
+
+services:
+  eventstore:
+   image: krnissbrandt/eventstore-cluster-node-docker:latest
+   env_file:
+     - common-variables.env
+   environment:
+     #- EVENTSTORE_GOSSIP_SEED=172.18.0.12:2112,172.18.0.13:2112,172.18.0.14:2112,172.18.0.15:2112
+     #- EVENTSTORE_NODE_PRIORITY=3
+     - EVENTSTORE_INT_IP=${SINGLE_NODE_MACHINE_IP}
+     - EVENTSTORE_EXT_IP=${SINGLE_NODE_MACHINE_IP}
+     - EVENTSTORE_EXT_HTTP_PORT=2113
+     - EVENTSTORE_EXT_TCP_PORT=1113
+     - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2113/
+   ports:
+     - 1113:1113
+     - 2113:2113
+  #  volumes:
+  #    - "~/Data/eventstore/node1/db:/data/db"
+  #    - "~/Data/eventstore/node1/logs:/data/logs"
+   restart: always
+   network_mode: host

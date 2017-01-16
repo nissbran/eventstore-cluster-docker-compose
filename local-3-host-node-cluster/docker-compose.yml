@@ -1,0 +1,83 @@
+version: "2"
+
+services:
+  eventstore1:
+   image: krnissbrandt/eventstore-cluster-node-docker:3.9.3
+   env_file:
+     - common-variables.env
+   environment:
+     - EVENTSTORE_GOSSIP_SEED=127.0.0.1:2122,127.0.0.1:2132
+     - EVENTSTORE_NODE_PRIORITY=3
+     - EVENTSTORE_GOSSIP_TIMEOUT_MS=1000
+     - EVENTSTORE_CLUSTER_GOSSIP_PORT=2112
+     - EVENTSTORE_INT_IP=127.0.0.1
+     - EVENTSTORE_INT_TCP_PORT=2111
+     - EVENTSTORE_INT_HTTP_PORT=2112
+     - EVENTSTORE_EXT_TCP_PORT=2113
+     - EVENTSTORE_EXT_HTTP_PORT=2114
+     - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2114/
+     - EVENTSTORE_INT_HTTP_PREFIXES=http://*:2112/
+   ports:
+     - 2111:2111
+     - 2112:2112
+     - 2113:2113
+     - 2114:2114
+   volumes:
+     - "~/Data/eventstore3node/node1/db:/data/db"
+     - "~/Data/eventstore3node/node1/logs:/data/logs"
+   restart: always
+   network_mode: host
+       
+  eventstore2:
+   image: krnissbrandt/eventstore-cluster-node-docker:3.9.3
+   env_file:
+     - common-variables.env
+   environment:
+     - EVENTSTORE_GOSSIP_SEED=127.0.0.1:2112,127.0.0.1:2132
+     - EVENTSTORE_NODE_PRIORITY=2
+     - EVENTSTORE_GOSSIP_TIMEOUT_MS=1000
+     - EVENTSTORE_CLUSTER_GOSSIP_PORT=2122
+     - EVENTSTORE_INT_IP=127.0.0.1
+     - EVENTSTORE_INT_TCP_PORT=2121
+     - EVENTSTORE_INT_HTTP_PORT=2122
+     - EVENTSTORE_EXT_TCP_PORT=2123
+     - EVENTSTORE_EXT_HTTP_PORT=2124
+     - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2124/
+     - EVENTSTORE_INT_HTTP_PREFIXES=http://*:2122/
+   ports:
+     - 2121:2121
+     - 2122:2122
+     - 2123:2123
+     - 2124:2124
+   volumes:
+     - "~/Data/eventstore3node/node2/db:/data/db"
+     - "~/Data/eventstore3node/node2/logs:/data/logs"
+   restart: always
+   network_mode: host
+   
+  eventstore3:
+   image: krnissbrandt/eventstore-cluster-node-docker:3.9.3
+   env_file:
+     - common-variables.env
+   environment:
+     - EVENTSTORE_GOSSIP_SEED=127.0.0.1:2112,127.0.0.1:2122
+     - EVENTSTORE_NODE_PRIORITY=1
+     - EVENTSTORE_GOSSIP_TIMEOUT_MS=1000
+     - EVENTSTORE_CLUSTER_GOSSIP_PORT=2132
+     - EVENTSTORE_INT_IP=127.0.0.1
+     - EVENTSTORE_INT_TCP_PORT=2131
+     - EVENTSTORE_INT_HTTP_PORT=2132
+     - EVENTSTORE_EXT_TCP_PORT=2133
+     - EVENTSTORE_EXT_HTTP_PORT=2134
+     - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2134/
+     - EVENTSTORE_INT_HTTP_PREFIXES=http://*:2132/
+   ports:
+     - 2131:2131
+     - 2132:2132
+     - 2133:2133
+     - 2134:2134
+   volumes:
+     - "~/Data/eventstore3node/node3/db:/data/db"
+     - "~/Data/eventstore3node/node3/logs:/data/logs"
+   restart: always
+   network_mode: host

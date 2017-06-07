@@ -2,7 +2,7 @@ version: "2"
 
 services:
   eventstore1:
-   image: krnissbrandt/eventstore-cluster-node-docker:3.9.3
+   image: krnissbrandt/eventstore-cluster-node-docker:4.0.0
    env_file:
      - common-variables.env
    environment:
@@ -29,7 +29,7 @@ services:
    network_mode: host
        
   eventstore2:
-   image: krnissbrandt/eventstore-cluster-node-docker:3.9.3
+   image: krnissbrandt/eventstore-cluster-node-docker:4.0.0
    env_file:
      - common-variables.env
    environment:
@@ -56,7 +56,7 @@ services:
    network_mode: host
    
   eventstore3:
-   image: krnissbrandt/eventstore-cluster-node-docker:3.9.3
+   image: krnissbrandt/eventstore-cluster-node-docker:4.0.0
    env_file:
      - common-variables.env
    environment:

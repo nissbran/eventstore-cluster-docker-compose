@@ -1,16 +1,14 @@
-version: "2"
+version: "3"
 
 services:
   eventstore1:
-   image: krnissbrandt/eventstore-cluster-node-docker:4.0.0
+   image: eventstore/eventstore:release-4.1.0
    env_file:
      - common-variables.env
    environment:
      - EVENTSTORE_GOSSIP_SEED=127.0.0.1:2122,127.0.0.1:2132
      - EVENTSTORE_NODE_PRIORITY=3
-     - EVENTSTORE_GOSSIP_TIMEOUT_MS=1000
      - EVENTSTORE_CLUSTER_GOSSIP_PORT=2112
-     - EVENTSTORE_INT_IP=127.0.0.1
      - EVENTSTORE_INT_TCP_PORT=2111
      - EVENTSTORE_INT_HTTP_PORT=2112
      - EVENTSTORE_EXT_TCP_PORT=2113
@@ -23,21 +21,22 @@ services:
      - 2113:2113
      - 2114:2114
    volumes:
-     - "~/Data/eventstore3node/node1/db:/data/db"
-     - "~/Data/eventstore3node/node1/logs:/data/logs"
+     - "~/Data/eventstorehost3node/node1:/var/lib/eventstore"
    restart: always
+   healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:2114/stats || exit 1"]
+      interval: 5s
+      timeout: 2s
    network_mode: host
        
   eventstore2:
-   image: krnissbrandt/eventstore-cluster-node-docker:4.0.0
+   image: eventstore/eventstore:release-4.1.0
    env_file:
      - common-variables.env
    environment:
      - EVENTSTORE_GOSSIP_SEED=127.0.0.1:2112,127.0.0.1:2132
      - EVENTSTORE_NODE_PRIORITY=2
-     - EVENTSTORE_GOSSIP_TIMEOUT_MS=1000
      - EVENTSTORE_CLUSTER_GOSSIP_PORT=2122
-     - EVENTSTORE_INT_IP=127.0.0.1
      - EVENTSTORE_INT_TCP_PORT=2121
      - EVENTSTORE_INT_HTTP_PORT=2122
      - EVENTSTORE_EXT_TCP_PORT=2123
@@ -50,21 +49,22 @@ services:
      - 2123:2123
      - 2124:2124
    volumes:
-     - "~/Data/eventstore3node/node2/db:/data/db"
-     - "~/Data/eventstore3node/node2/logs:/data/logs"
+     - "~/Data/eventstorehost3node/node2:/var/lib/eventstore"
    restart: always
+   healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:2124/stats || exit 1"]
+      interval: 5s
+      timeout: 2s
    network_mode: host
    
   eventstore3:
-   image: krnissbrandt/eventstore-cluster-node-docker:4.0.0
+   image: eventstore/eventstore:release-4.1.0
    env_file:
      - common-variables.env
    environment:
      - EVENTSTORE_GOSSIP_SEED=127.0.0.1:2112,127.0.0.1:2122
      - EVENTSTORE_NODE_PRIORITY=1
-     - EVENTSTORE_GOSSIP_TIMEOUT_MS=1000
      - EVENTSTORE_CLUSTER_GOSSIP_PORT=2132
-     - EVENTSTORE_INT_IP=127.0.0.1
      - EVENTSTORE_INT_TCP_PORT=2131
      - EVENTSTORE_INT_HTTP_PORT=2132
      - EVENTSTORE_EXT_TCP_PORT=2133
@@ -77,7 +77,10 @@ services:
      - 2133:2133
      - 2134:2134
    volumes:
-     - "~/Data/eventstore3node/node3/db:/data/db"
-     - "~/Data/eventstore3node/node3/logs:/data/logs"
+     - "~/Data/eventstorehost3node/node3:/var/lib/eventstore"
    restart: always
+   healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:2134/stats || exit 1"]
+      interval: 5s
+      timeout: 2s
    network_mode: host

@@ -1,126 +1,126 @@
-version: "2"
+version: "3"
 
 services:
   eventstore1:
-   image: krnissbrandt/eventstore-cluster-node-docker:3.9.2
+   image: eventstore/eventstore:release-4.1.0
    env_file:
      - common-variables.env
    environment:
-     - EVENTSTORE_GOSSIP_SEED=172.18.0.12:2112,172.18.0.13:2112,172.18.0.14:2112,172.18.0.15:2112
-     - EVENTSTORE_NODE_PRIORITY=3
-     - EVENTSTORE_INT_IP=172.18.0.11
-     - EVENTSTORE_EXT_IP=172.18.0.11
+     - EVENTSTORE_CLUSTER_DNS=escluster.net
      - EVENTSTORE_EXT_HTTP_PORT=2113
      - EVENTSTORE_EXT_TCP_PORT=1113
      - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2113/
    ports:
-     - 127.0.0.1:1113:1113
-     - 127.0.0.1:2113:2113
+     - 1113:1113
+     - 2113:2113
    volumes:
-     - "~/Data/eventstore5node/node1/db:/data/db"
-     - "~/Data/eventstore5node/node1/logs:/data/logs"
+     - "~/Data/eventstore5node/node1:/var/lib/eventstore"
    restart: always
+   healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:2113/stats || exit 1"]
+      interval: 5s
+      timeout: 2s
    networks:
      clusternetwork:
-       ipv4_address: 172.18.0.11
+       aliases: 
+        - escluster.net
        
   eventstore2:
-   image: krnissbrandt/eventstore-cluster-node-docker:3.9.2
+   image: eventstore/eventstore:release-4.1.0
    env_file:
      - common-variables.env
    environment:
-     - EVENTSTORE_GOSSIP_SEED=172.18.0.11:2112,172.18.0.13:2112,172.18.0.14:2112,172.18.0.15:2112
-     - EVENTSTORE_NODE_PRIORITY=2
-     - EVENTSTORE_INT_IP=172.18.0.12
-     - EVENTSTORE_EXT_IP=172.18.0.12
+     - EVENTSTORE_CLUSTER_DNS=escluster.net
      - EVENTSTORE_EXT_HTTP_PORT=2123
      - EVENTSTORE_EXT_TCP_PORT=1123
      - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2123/
    ports:
-     - 127.0.0.1:1123:1123
-     - 127.0.0.1:2123:2123
+     - 1123:1123
+     - 2123:2123
    volumes:
-     - "~/Data/eventstore5node/node2/db:/data/db"
-     - "~/Data/eventstore5node/node2/logs:/data/logs"
+     - "~/Data/eventstore5node/node2:/var/lib/eventstore"
    restart: always
+   healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:2123/stats || exit 1"]
+      interval: 5s
+      timeout: 2s
    networks:
      clusternetwork:
-       ipv4_address: 172.18.0.12
+       aliases: 
+        - escluster.net
    
   eventstore3:
-   image: krnissbrandt/eventstore-cluster-node-docker:3.9.2
+   image: eventstore/eventstore:release-4.1.0
    env_file:
      - common-variables.env
    environment:
-     - EVENTSTORE_GOSSIP_SEED=172.18.0.11:2112,172.18.0.13:2112,172.18.0.14:2112,172.18.0.15:2112
-     - EVENTSTORE_NODE_PRIORITY=1
-     - EVENTSTORE_INT_IP=172.18.0.13
-     - EVENTSTORE_EXT_IP=172.18.0.13
+     - EVENTSTORE_CLUSTER_DNS=escluster.net
      - EVENTSTORE_EXT_HTTP_PORT=2133
      - EVENTSTORE_EXT_TCP_PORT=1133
      - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2133/
    ports:
-     - 127.0.0.1:1133:1133
-     - 127.0.0.1:2133:2133
+     - 1133:1133
+     - 2133:2133
    volumes:
-     - "~/Data/eventstore5node/node3/db:/data/db"
-     - "~/Data/eventstore5node/node3/logs:/data/logs"
+     - "~/Data/eventstore5node/node3:/var/lib/eventstore"
    restart: always
+   healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:2133/stats || exit 1"]
+      interval: 5s
+      timeout: 2s
    networks:
      clusternetwork:
-       ipv4_address: 172.18.0.13
+       aliases: 
+        - escluster.net
 
   eventstore4:
-   image: krnissbrandt/eventstore-cluster-node-docker:3.9.2
+   image: eventstore/eventstore:release-4.1.0
    env_file:
      - common-variables.env
    environment:
-     - EVENTSTORE_GOSSIP_SEED=172.18.0.11:2112,172.18.0.12:2112,172.18.0.13:2112,172.18.0.15:2112
-     - EVENTSTORE_NODE_PRIORITY=1
-     - EVENTSTORE_INT_IP=172.18.0.14
-     - EVENTSTORE_EXT_IP=172.18.0.14
+     - EVENTSTORE_CLUSTER_DNS=escluster.net
      - EVENTSTORE_EXT_HTTP_PORT=2143
      - EVENTSTORE_EXT_TCP_PORT=1143
      - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2143/
    ports:
-     - 127.0.0.1:1143:1143
-     - 127.0.0.1:2143:2143
+     - 1143:1143
+     - 2143:2143
    volumes:
-     - "~/Data/eventstore5node/node4/db:/data/db"
-     - "~/Data/eventstore5node/node4/logs:/data/logs"
+     - "~/Data/eventstore5node/node4:/var/lib/eventstore"
    restart: always
+   healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:2143/stats || exit 1"]
+      interval: 5s
+      timeout: 2s
    networks:
      clusternetwork:
-       ipv4_address: 172.18.0.14
+       aliases: 
+        - escluster.net
 
   eventstore5:
-   image: krnissbrandt/eventstore-cluster-node-docker:3.9.2
+   image: eventstore/eventstore:release-4.1.0
    env_file:
      - common-variables.env
    environment:
-     - EVENTSTORE_GOSSIP_SEED=172.18.0.11:2112,172.18.0.12:2112,172.18.0.13:2112,172.18.0.14:2112
-     - EVENTSTORE_NODE_PRIORITY=1
-     - EVENTSTORE_INT_IP=172.18.0.15
-     - EVENTSTORE_EXT_IP=172.18.0.15
+     - EVENTSTORE_CLUSTER_DNS=escluster.net
      - EVENTSTORE_EXT_HTTP_PORT=2153
      - EVENTSTORE_EXT_TCP_PORT=1153
      - EVENTSTORE_EXT_HTTP_PREFIXES=http://*:2153/
    ports:
-     - 127.0.0.1:1153:1153
-     - 127.0.0.1:2153:2153
+     - 1153:1153
+     - 2153:2153
    volumes:
-     - "~/Data/eventstore5node/node5/db:/data/db"
-     - "~/Data/eventstore5node/node5/logs:/data/logs"
+     - "~/Data/eventstore5node/node5:/var/lib/eventstore"
    restart: always
+   healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:2153/stats || exit 1"]
+      interval: 5s
+      timeout: 2s
    networks:
      clusternetwork:
-       ipv4_address: 172.18.0.15
+       aliases: 
+        - escluster.net
 
 networks:
   clusternetwork:
     driver: bridge
-    ipam:
-      driver: default
-      config:
-      - subnet: 172.18.0.0/24
-        gateway: 172.18.0.1    
